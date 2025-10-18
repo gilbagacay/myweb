@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Reminder App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-pills"></i>
+                <h1>Medicine Reminder</h1>
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Upcoming Reminders</h2>
+                    <span id="currentTime">10:30 AM</span>
+                </div>
+                <div class="upcoming-reminders" id="upcomingReminders">
+                    <!-- Reminders will be populated by JavaScript -->
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalMedicines">0</div>
+                        <div class="stat-label">Total Medicines</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="todayReminders">0</div>
+                        <div class="stat-label">Today's Reminders</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Add New Reminder</h2>
+                </div>
+                <form id="medicineForm" class="add-reminder-form">
+                    <div class="form-group">
+                        <label for="medicineName">Medicine Name</label>
+                        <input type="text" id="medicineName" class="form-control" placeholder="e.g., Paracetamol" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="medicineType">Medicine Type</label>
+                        <select id="medicineType" class="form-control" required>
+                            <option value="">Select Type</option>
+                            <option value="Tablet">Tablet</option>
+                            <option value="Capsule">Capsule</option>
+                            <option value="Syrup">Syrup</option>
+                            <option value="Injection">Injection</option>
+                            <option value="Cream">Cream</option>
+                            <option value="Drops">Drops</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dosage">Dosage</label>
+                        <input type="text" id="dosage" class="form-control" placeholder="e.g., 500mg" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency">Frequency</label>
+                        <select id="frequency" class="form-control" required>
+                            <option value="">Select Frequency</option>
+                            <option value="Once daily">Once daily</option>
+                            <option value="Twice daily">Twice daily</option>
+                            <option value="Three times daily">Three times daily</option>
+                            <option value="Four times daily">Four times daily</option>
+                            <option value="As needed">As needed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time</label>
+                        <input type="time" id="time" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date (Optional)</label>
+                        <input type="date" id="endDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes (Optional)</label>
+                        <textarea id="notes" class="form-control" rows="3" placeholder="Any additional instructions..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-save"></i> Save Reminder
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="medicines-list">
+            <div class="tabs">
+                <div class="tab active" data-tab="all">All Medicines</div>
+                <div class="tab" data-tab="active">Active</div>
+                <div class="tab" data-tab="completed">Completed</div>
+            </div>
+            
+            <div class="tab-content active" id="all-tab">
+                <h2>Your Medicines</h2>
+                <div class="medicine-grid" id="medicineGrid">
+                    <!-- Medicine cards will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="tab-content" id="active-tab">
+                <h2>Active Medicines</h2>
+                <div class="medicine-grid" id="activeMedicineGrid">
+                    <!-- Active medicine cards will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div class="tab-content" id="completed-tab">
+                <h2>Completed Medicines</h2>
+                <div class="medicine-grid" id="completedMedicineGrid">
+                    <!-- Completed medicine cards will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>MediRemind &copy; 2025 - Never miss a dose again!</p>
+        </footer>
+    </div>
+
+    <div class="notification" id="notification">
+        <div class="notification-icon">
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="notification-content">
+            <h4 id="notificationTitle">Reminder</h4>
+            <p id="notificationMessage">It's time to take your medicine!</p>
+        </div>
+        <button class="close-notification" id="closeNotification">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
