@@ -1,148 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Reminder App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Medicine Reminder — save and get notified for medicine doses." />
+  <title>Medicine Reminder App</title>
+
+  <!-- Font Awesome CDN (optional) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-pills"></i>
-                <h1>Medicine Reminder</h1>
-            </div>
-        </header>
+  <div class="container">
+    <header>
+      <div class="logo" aria-hidden="false">
+        <i class="fas fa-pills" aria-hidden="true"></i>
+        <h1>Medicine Reminder</h1>
+      </div>
+    </header>
 
-        <div class="dashboard">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Upcoming Reminders</h2>
-                    <span id="currentTime">10:30 AM</span>
-                </div>
-                <div class="upcoming-reminders" id="upcomingReminders">
-                    <!-- Reminders will be populated by JavaScript -->
-                </div>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-value" id="totalMedicines">0</div>
-                        <div class="stat-label">Total Medicines</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="todayReminders">0</div>
-                        <div class="stat-label">Today's Reminders</div>
-                    </div>
-                </div>
-            </div>
+    <main>
+      <section class="dashboard" aria-labelledby="upcoming-title">
+        <div class="card">
+          <div class="card-header">
+            <h2 id="upcoming-title" class="card-title">Upcoming Reminders</h2>
+            <span id="currentTime" class="current-time" aria-live="polite">--:--</span>
+          </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Add New Reminder</h2>
-                </div>
-                <form id="medicineForm" class="add-reminder-form">
-                    <div class="form-group">
-                        <label for="medicineName">Medicine Name</label>
-                        <input type="text" id="medicineName" class="form-control" placeholder="e.g., Paracetamol" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="medicineType">Medicine Type</label>
-                        <select id="medicineType" class="form-control" required>
-                            <option value="">Select Type</option>
-                            <option value="Tablet">Tablet</option>
-                            <option value="Capsule">Capsule</option>
-                            <option value="Syrup">Syrup</option>
-                            <option value="Injection">Injection</option>
-                            <option value="Cream">Cream</option>
-                            <option value="Drops">Drops</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="dosage">Dosage</label>
-                        <input type="text" id="dosage" class="form-control" placeholder="e.g., 500mg" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="frequency">Frequency</label>
-                        <select id="frequency" class="form-control" required>
-                            <option value="">Select Frequency</option>
-                            <option value="Once daily">Once daily</option>
-                            <option value="Twice daily">Twice daily</option>
-                            <option value="Three times daily">Three times daily</option>
-                            <option value="Four times daily">Four times daily</option>
-                            <option value="As needed">As needed</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="time">Time</label>
-                        <input type="time" id="time" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="startDate">Start Date</label>
-                        <input type="date" id="startDate" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="endDate">End Date (Optional)</label>
-                        <input type="date" id="endDate" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="notes">Notes (Optional)</label>
-                        <textarea id="notes" class="form-control" rows="3" placeholder="Any additional instructions..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">
-                        <i class="fas fa-save"></i> Save Reminder
-                    </button>
-                </form>
+          <div class="upcoming-reminders" id="upcomingReminders" aria-live="polite">
+            <!-- Reminders will be populated by JavaScript -->
+          </div>
+
+          <div class="stats" role="list">
+            <div class="stat-item" role="listitem">
+              <div class="stat-value" id="totalMedicines">0</div>
+              <div class="stat-label">Total Medicines</div>
             </div>
+            <div class="stat-item" role="listitem">
+              <div class="stat-value" id="todayReminders">0</div>
+              <div class="stat-label">Today's Reminders</div>
+            </div>
+          </div>
         </div>
 
-        <div class="medicines-list">
-            <div class="tabs">
-                <div class="tab active" data-tab="all">All Medicines</div>
-                <div class="tab" data-tab="active">Active</div>
-                <div class="tab" data-tab="completed">Completed</div>
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Add New Reminder</h2>
+          </div>
+
+          <form id="medicineForm" class="add-reminder-form" aria-label="Add new medicine reminder">
+            <div class="form-group">
+              <label for="medicineName">Medicine Name</label>
+              <input type="text" id="medicineName" name="medicineName" class="form-control" placeholder="e.g., Paracetamol" required />
             </div>
-            
-            <div class="tab-content active" id="all-tab">
-                <h2>Your Medicines</h2>
-                <div class="medicine-grid" id="medicineGrid">
-                    <!-- Medicine cards will be populated by JavaScript -->
-                </div>
+
+            <div class="form-group">
+              <label for="medicineType">Medicine Type</label>
+              <select id="medicineType" name="medicineType" class="form-control" required>
+                <option value="">Select Type</option>
+                <option value="Tablet">Tablet</option>
+                <option value="Capsule">Capsule</option>
+                <option value="Syrup">Syrup</option>
+                <option value="Injection">Injection</option>
+                <option value="Cream">Cream</option>
+                <option value="Drops">Drops</option>
+              </select>
             </div>
-            
-            <div class="tab-content" id="active-tab">
-                <h2>Active Medicines</h2>
-                <div class="medicine-grid" id="activeMedicineGrid">
-                    <!-- Active medicine cards will be populated by JavaScript -->
-                </div>
+
+            <div class="form-group">
+              <label for="dosage">Dosage</label>
+              <input type="text" id="dosage" name="dosage" class="form-control" placeholder="e.g., 500mg" required />
             </div>
-            
-            <div class="tab-content" id="completed-tab">
-                <h2>Completed Medicines</h2>
-                <div class="medicine-grid" id="completedMedicineGrid">
-                    <!-- Completed medicine cards will be populated by JavaScript -->
-                </div>
+
+            <div class="form-group">
+              <label for="frequency">Frequency</label>
+              <select id="frequency" name="frequency" class="form-control" required>
+                <option value="">Select Frequency</option>
+                <option value="Once daily">Once daily</option>
+                <option value="Twice daily">Twice daily</option>
+                <option value="Three times daily">Three times daily</option>
+                <option value="Four times daily">Four times daily</option>
+                <option value="As needed">As needed</option>
+              </select>
             </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="time">Time</label>
+                <input type="time" id="time" name="time" class="form-control" required />
+              </div>
+
+              <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate" name="startDate" class="form-control" required />
+              </div>
+
+              <div class="form-group">
+                <label for="endDate">End Date (Optional)</label>
+                <input type="date" id="endDate" name="endDate" class="form-control" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Notes (Optional)</label>
+              <textarea id="notes" name="notes" class="form-control" rows="3" placeholder="Any additional instructions..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fas fa-save" aria-hidden="true"></i>
+              <span>Save Reminder</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section class="medicines-list" aria-labelledby="your-medicines">
+        <div class="tabs" role="tablist" aria-label="Medicine filters">
+          <button class="tab active" data-tab="all" role="tab" aria-selected="true">All Medicines</button>
+          <button class="tab" data-tab="active" role="tab" aria-selected="false">Active</button>
+          <button class="tab" data-tab="completed" role="tab" aria-selected="false">Completed</button>
         </div>
 
-        <footer>
-            <p>MediRemind &copy; 2025 - Never miss a dose again!</p>
-        </footer>
+        <div class="tab-content active" id="all-tab" role="tabpanel" aria-labelledby="your-medicines">
+          <h2 id="your-medicines">Your Medicines</h2>
+          <div class="medicine-grid" id="medicineGrid"></div>
+        </div>
+
+        <div class="tab-content" id="active-tab" role="tabpanel" hidden>
+          <h2>Active Medicines</h2>
+          <div class="medicine-grid" id="activeMedicineGrid"></div>
+        </div>
+
+        <div class="tab-content" id="completed-tab" role="tabpanel" hidden>
+          <h2>Completed Medicines</h2>
+          <div class="medicine-grid" id="completedMedicineGrid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>MediRemind &copy; 2025 - Never miss a dose again!</p>
+    </footer>
+  </div>
+
+  <div class="notification" id="notification" role="status" aria-live="assertive" hidden>
+    <div class="notification-icon"><i class="fas fa-bell" aria-hidden="true"></i></div>
+    <div class="notification-content">
+      <h4 id="notificationTitle">Reminder</h4>
+      <p id="notificationMessage">It's time to take your medicine!</p>
     </div>
+    <button class="close-notification" id="closeNotification" aria-label="Close notification">
+      <i class="fas fa-times" aria-hidden="true"></i>
+    </button>
+  </div>
 
-    <div class="notification" id="notification">
-        <div class="notification-icon">
-            <i class="fas fa-bell"></i>
-        </div>
-        <div class="notification-content">
-            <h4 id="notificationTitle">Reminder</h4>
-            <p id="notificationMessage">It's time to take your medicine!</p>
-        </div>
-        <button class="close-notification" id="closeNotification">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
-
-    <script src="./script.js"></script>
+  <script src="./script.js" defer></script>
 </body>
-</html>
+</html>                           
+            
+     
+
+   
